@@ -1,0 +1,39 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+*.coverage
+.coverage.*
+htmlcov/
+
+# --- Environnements virtuels ---
+.venv/
+venv/
+env/
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- PyInstaller ---
+build/
+dist/
+*.spec
+
+# --- Logs / sorties locales ---
+*.log
+winners.txt
+gagnants.txt
+
+# --- Certificats privés (ne JAMAIS commiter) ---
+*.pfx
+*.p12
+*.pem
+*.key
+
+desktop.ini
