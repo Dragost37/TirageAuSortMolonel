@@ -1,58 +1,83 @@
-# Giveaway Randomizer — version GUI (noir & blanc)
-
-Projet minimaliste qui **sépare** :
-- la **logique de giveaway** (`src/core.py`),
-- la **logique d'interface + affichage** (`src/ui_tk.py`),
-- et un **point d'entrée** (`src/main_gui.py`).
-
-Interface en noir & blanc (Tkinter), animations :
-- compteur de participants (4 s, easing),
-- révélation des gagnants façon "roulette".
-- export automatique `winners.txt`.
+Voici un **README.md** à jour, aligné avec ta nouvelle structure (modules `ui/`, confettis, icônes, titre personnalisé, etc.) :
 
 ---
 
-## Démarrer en local
+# Molonel — Giveaway Randomizer (GUI)
 
-1) Installer Python 3.10+ sur Windows.
-2) Dans un terminal PowerShell/CMD à la racine du projet :
+Appli Tkinter **modulaire** pour tirages au sort, thème **noir & orange** (Molonel), animations fluides et export automatique des gagnants.
 
-```bat
-python -m venv .venv
-.venv\Scripts\activate
-pip install --upgrade pip
-python src\\main_gui.py
-```
+## Points clés
 
-## Générer un .exe Windows (PyInstaller)
+* Séparation claire :
 
-Toujours dans l'environnement virtuel :
+  * **Logique** (nettoyage + tirage + sauvegarde) : `src/core/`
+  * **UI & animations** : `src/ui/`
+  * **Entrée** : `src/main_gui.py`
+* Animations :
 
-```bat
-pip install pyinstaller
-pyinstaller --noconfirm --clean --onefile --windowed ^
-  --name "GiveawayRandomizer" src\\main_gui.py
-```
+  * Compteur de participants (easing)
+  * Révélation “roulette”
+  * **Confettis** visibles en même temps que les noms gagnants
+* Import de liste `.txt` (un pseudo par ligne), **déduplication** (ignore les espaces)
+* Export automatique des résultats : `gagnants.txt`
+* Raccourcis : **Ctrl+Entrée** (tirage), **Ctrl+O** (import)
 
-Le binaire sera dans `dist\\GiveawayRandomizer.exe`.
-
-> Astuce : si vous souhaitez voir les logs console pendant le dev,
-> utilisez `--console` à la place de `--windowed`.
+---
 
 ## Arborescence
 
 ```
 giveaway_app/
+├─ assets/
+│  ├─ molonel.ico
+│  └─ ... (png, etc.)
 ├─ src/
-│  ├─ core.py        # logique pure (nettoyage + tirage)
-│  ├─ ui_tk.py       # interface Tkinter + animations
-│  └─ main_gui.py    # point d'entrée
+│  ├─ main_gui.py        # point d'entrée (UI + icônes + AppUserModelID)
+│  ├─ core/
+│  │  ├─ __init__.py     # export : list_to_array, draw, save_winners
+│  │  └─ core.py         # logique pure (nettoyage + tirage + sauvegarde)
+│  └─ ui/
+│     ├─ window.py       # fenêtre, widgets, canevas unique (texte + confettis)
+│     ├─ animations.py   # pop_font, animate_count, confetti_burst
+│     └─ theme.py        # palette Molonel, options (CUSTOM_TITLEBAR, etc.)
+├─ version_info.txt      # métadonnées pour l’EXE (éditeur, version…)
 └─ README.md
 ```
 
-## Remarques
+---
 
-- **Encodage** : UTF‑8 (fichiers et sortie).
-- **Animations** : sans thread, pilotées avec `after()` de Tkinter.
-- **Doublons** : supprimés en ignorant les espaces.
-- **Sécurité** : si `gagnants > participants`, le nombre est automatiquement borné.
+## Options d’interface utiles
+
+* **Barre de titre personnalisée** (sans bordure Windows) :
+
+  * Dans `src/ui/theme.py`, passer `CUSTOM_TITLEBAR = True/False`
+  * Avec `True`, les boutons **réduction/fermeture** sont gérés par l’app (patché pour Windows).
+  * Avec `False`, on garde la barre native de Windows (alt-tab, snap, etc.).
+
+* **Icônes** :
+
+  * Fenêtre & barre des tâches : `assets/molonel.ico`
+  * `main_gui.py` charge aussi un PNG (fallback multi-OS) si présent.
+
+---
+
+## Bonnes pratiques & stabilité
+
+* Les confettis sont rendus **dans le même Canvas** que les labels de résultats → pas de problèmes de superposition : les **noms restent visibles** pendant l’animation.
+* Animations **sans threads**, uniquement via `after()`.
+* Si vous modifiez le titre personnalisé (`CUSTOM_TITLEBAR=True`) :
+
+  * Les clics des boutons **ne** se propagent pas à la zone de drag (fermeture au **premier** clic).
+  * La réduction utilise la séquence Windows : désactiver temporairement `overrideredirect`, `iconify()`, puis réactiver à la remontée.
+
+---
+
+## Licence
+
+Ajoute ici la licence de ton choix (ex. MIT) si tu souhaites open-sourcer le projet.
+
+---
+
+## Crédit
+
+Conception UI/animations & refactor du projet d'origine par un viewer Anonyme de Molonel.
