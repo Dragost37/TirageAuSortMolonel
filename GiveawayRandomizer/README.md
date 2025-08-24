@@ -1,7 +1,3 @@
-Voici un **README.md** à jour, aligné avec ta nouvelle structure (modules `ui/`, confettis, icônes, titre personnalisé, etc.) :
-
----
-
 # Molonel — Giveaway Randomizer (GUI)
 
 Appli Tkinter **modulaire** pour tirages au sort, thème **noir & orange** (Molonel), animations fluides et export automatique des gagnants.
