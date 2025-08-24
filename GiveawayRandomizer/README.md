@@ -25,7 +25,7 @@ Appli Tkinter **modulaire** pour tirages au sort, thème **noir & orange** (Molo
 ```
 giveaway_app/
 ├─ assets/
-│  ├─ molonel.ico
+│  ├─ *.ico
 │  └─ ... (png, etc.)
 ├─ src/
 │  ├─ main_gui.py        # point d'entrée (UI + icônes + AppUserModelID)
