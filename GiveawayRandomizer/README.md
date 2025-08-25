@@ -1,11 +1,4 @@
-# Quick Start
-## Lancer
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-pip install -r requirements.txt
-python src\main_gui.py
-```
-
-## Build
-pyinstaller --noconfirm --onefile --noconsole --icon assets\kdo.ico --add-data "assets;assets" --version-file version_info.txt -n MolonelTirage src\main_gui.py
+cd "YOURPATHHERE\GiveawayRandomizer"
+. .\.venv\Scripts\Activate.ps1
+python -m pip install -U pip setuptools wheel pyinstaller
+python -m PyInstaller --noconfirm --clean --onedir --noconsole --noupx --icon assets\kdo.ico --add-data "assets;assets" --version-file version_info.txt -n MolonelTirage src\main_gui.py
